@@ -18,8 +18,8 @@ import environ
 
 env = environ.Env(DEBUG=(bool, False))
 
-PROJECT_DISPLAY_NAME = "SaaS Kit"  # Used for public display e.g as default in <title> tags
-PROJECT_SLUG = "saas_kit"
+PROJECT_DISPLAY_NAME = "Org Torii"  # Used for public display e.g as default in <title> tags
+PROJECT_SLUG = "orgtorii"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -49,7 +49,7 @@ ADMINS = getaddresses([env("DJANGO_ADMINS")])
 
 # Application definition
 
-AUTH_USER_MODEL = "users.SaaSUser"
+AUTH_USER_MODEL = "users.OrgToriiUser"
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -69,8 +69,8 @@ INSTALLED_APPS = [
     "meta",  # SEO metadata
     "djstripe",  # Stripe integration
     # Project apps
-    "saas.users",
-    "saas.core",
+    "orgtorii.users",
+    "orgtorii.core",
 ]
 
 MIDDLEWARE = [
@@ -110,7 +110,7 @@ if not TESTING:
         "django_prometheus.middleware.PrometheusAfterMiddleware",
     ]
 
-ROOT_URLCONF = "saas.urls"
+ROOT_URLCONF = "orgtorii.urls"
 
 TEMPLATES = [
     {
@@ -128,7 +128,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "saas.wsgi.application"
+WSGI_APPLICATION = "orgtorii.wsgi.application"
 
 
 # Database
@@ -206,7 +206,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 PASSWORD_HASHERS = [
-    "saas.hashers.SecureArgon2PasswordHasher",
+    "orgtorii.hashers.SecureArgon2PasswordHasher",
     "django.contrib.auth.hashers.Argon2PasswordHasher",
     "django.contrib.auth.hashers.PBKDF2PasswordHasher",
     "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",

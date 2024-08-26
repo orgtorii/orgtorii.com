@@ -1,5 +1,5 @@
 """
-WSGI config for saas project.
+WSGI config for orgtorii project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "saas.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "orgtorii.settings")
 
 application = get_wsgi_application()

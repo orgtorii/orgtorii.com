@@ -5,7 +5,7 @@ from django.urls import reverse
 from .playwright import PlaywrightTestCase
 
 # Persona:
-# Andy is a user who wants to log in to the SaaS product to access their account.
+# Andy is a user who wants to log in to the OrgTorii product to access their account.
 
 
 @skip("Skip until the test is implemented")
@@ -14,7 +14,7 @@ class AuthenticationTestCase(PlaywrightTestCase):
     user_password = "iKDt6EFwyQEjkgqSzCdvFdC7imS5JN0H"
 
     def test_user_auth_flow(self):
-        # Andy wants to register for the SaaS product
+        # Andy wants to register for the OrgTorii product
         context = self.browser.new_context()
         context.set_default_timeout(3000)
         page = context.new_page()

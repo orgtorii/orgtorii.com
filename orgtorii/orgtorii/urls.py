@@ -1,5 +1,5 @@
 """
-URL configuration for saas project.
+URL configuration for orgtorii project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
@@ -18,7 +18,8 @@ Including another URLconf
 from debug_toolbar.toolbar import debug_toolbar_urls
 from django.contrib import admin
 from django.urls import include, path
-from saas.core import views as core_views
+
+from orgtorii.core import views as core_views
 
 from . import views
 

@@ -5,7 +5,7 @@ from . import selectors
 
 
 def homepage(request):
-    return render(request, "saas/homepage.html")
+    return render(request, "orgtorii/homepage.html")
 
 
 def register(request):
@@ -16,9 +16,9 @@ def register(request):
 
 
 def dashboard(request):
-    return render(request, "saas/dashboard.html")
+    return render(request, "orgtorii/dashboard.html")
 
 
 def pricing(request):
     products = selectors.product_list()
-    return render(request, "saas/pricing.html", {"products": products})
+    return render(request, "orgtorii/pricing.html", {"products": products})

@@ -2,7 +2,8 @@ from collections.abc import Iterable
 
 from djstripe.enums import ProductType
 from djstripe.models import Product
-from saas.users import models as user_models
+
+from orgtorii.users import models as user_models
 
 
 def product_list() -> Iterable[Product]:
@@ -14,7 +15,7 @@ def product_list() -> Iterable[Product]:
     return Product.objects.filter(type=ProductType.service)
 
 
-def user_has_permission(*, user: user_models.User, permission: str) -> bool:
+def user_has_permission(*, user: user_models.OrgToriiUser, permission: str) -> bool:
     """Check if a user has a specific permission.
 
     Args:

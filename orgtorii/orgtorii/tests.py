@@ -39,7 +39,7 @@ class PriceFactory(factory.django.DjangoModelFactory):
 class HomepageTestCase(TestCase):
     def test_uses_home_template(self):
         response = self.client.get(reverse("homepage"))
-        self.assertTemplateUsed(response, "saas/homepage.html")
+        self.assertTemplateUsed(response, "orgtorii/homepage.html")
 
 
 class AuthTestCase(TestCase):
@@ -97,7 +97,7 @@ class AuthTestCase(TestCase):
     def test_dashboard_view(self):
         response = self.client.get(reverse("account:dashboard"))
 
-        self.assertTemplateUsed(response, "saas/dashboard.html")
+        self.assertTemplateUsed(response, "orgtorii/dashboard.html")
 
 
 class PricingTestCase(TestCase):
@@ -105,7 +105,7 @@ class PricingTestCase(TestCase):
         response = self.client.get(reverse("pricing"))
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "saas/pricing.html")
+        self.assertTemplateUsed(response, "orgtorii/pricing.html")
 
     def test_pricing_view_returns_products(self):
         ProductFactory()

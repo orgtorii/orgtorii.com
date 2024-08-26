@@ -1,13 +1,9 @@
-from typing import ClassVar
-
 from django.contrib.auth.models import AbstractUser
-from django.db.models import CharField, EmailField
+from django.db.models import CharField
 from django.utils.translation import gettext_lazy as _
 
-from .managers import UserManager
 
-
-class SaaSUser(AbstractUser):
+class OrgToriiUser(AbstractUser):
     """Custom user model.
 
     As this can be hard to change mid project then we create a
@@ -20,10 +16,4 @@ class SaaSUser(AbstractUser):
     first_name = None  # type: ignore[assignment]
     last_name = None  # type: ignore[assignment]
 
-    email = EmailField(_("email address"), unique=True)
-    username = None  # type: ignore[assignment]
-
-    objects: ClassVar[UserManager] = UserManager()
-
-    USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

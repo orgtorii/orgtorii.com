@@ -47,4 +47,4 @@ class NewsletterTestCase(TestCase):
     def test_newsletter_signup_shown_on_homepage(self):
         response = self.client.get("/")
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "partials/saas/newsletter/signup.html")
+        self.assertTemplateUsed(response, "partials/orgtorii/newsletter/signup.html")

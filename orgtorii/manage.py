@@ -9,7 +9,7 @@ from opentelemetry.instrumentation.django import DjangoInstrumentor
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "saas.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "orgtorii.settings")
 
     DjangoInstrumentor().instrument()  # Enable open telemetry instrumentation
 
