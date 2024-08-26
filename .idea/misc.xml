@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Black">
-    <option name="sdkName" value="Pipenv (django-saas-starter)" />
-  </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Pipenv (django-saas-starter)" project-jdk-type="Python SDK" />
+    <component name="Black">
+        <option name="sdkName" value="Pipenv (orgtorii)" />
+    </component>
+    <component name="ProjectRootManager" version="2" project-jdk-name="Pipenv (orgtorii)"
+        project-jdk-type="Python SDK" />
 </project>

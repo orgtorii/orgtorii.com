@@ -1,5 +1,5 @@
 {
-  "name": "Django SaaS starter",
+  "name": "OrgTorii",
   "dockerComposeFile": ["../docker-compose.yaml", "../docker-compose.dev.yaml"],
   "service": "app",
   "mounts": [

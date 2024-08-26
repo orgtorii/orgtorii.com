@@ -20,6 +20,7 @@ django-prometheus = "*"
 pillow = "*"
 django-meta = "*"
 dj-stripe = "*"
+whitenoise = {extras = ["brotli"], version = "*"}
 
 [dev-packages]
 playwright = "*"

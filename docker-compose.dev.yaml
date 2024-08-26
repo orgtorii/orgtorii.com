@@ -1,5 +1,5 @@
 ---
-name: django-saas-dev
+name: orgtorii-dev
 services:
   app:
     build:

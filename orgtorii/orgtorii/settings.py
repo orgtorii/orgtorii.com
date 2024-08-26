@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.sites",
     "django.contrib.messages",
+    "whitenoise.runserver_nostatic",  # Whitenoise for static files in development
     "django.contrib.staticfiles",
     "guardian",  # Object level permissions
     "django_filters",  # Filtering based on user input
@@ -74,6 +75,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -261,6 +263,17 @@ MFA_PASSKEY_LOGIN_ENABLED = True
 MFA_WEBAUTHN_ALLOW_INSECURE_ORIGIN = DEBUG
 
 MFA_TOTP_ISSUER = PROJECT_DISPLAY_NAME
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.1/howto/static-files/
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_HOST = env.str("DJANGO_STATIC_HOST", "")
+STATIC_URL = STATIC_HOST + "/static/"
 
 # Django newsletter
 # https://django-newsletter.readthedocs.io/en/latest/installation.html

@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := help
 
-SAAS_DIR := saas
+SAAS_DIR := orgtorii
 PIPENV_RUN := pipenv run
 
 .PHONY: help
@@ -46,6 +46,10 @@ runserver: ## Run the development server
 .PHONY: migrate
 migrate: ## Run Django migrations
 	@cd ${SAAS_DIR}; ${PIPENV_RUN} python manage.py migrate
+
+.PHONY: collectstatic
+collectstatic: ## Collect static files
+	@cd ${SAAS_DIR}; ${PIPENV_RUN} python manage.py collectstatic --noinput
 
 ###############################################
 ## Development

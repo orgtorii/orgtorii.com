@@ -1,19 +1,27 @@
 {
   "cSpell.words": [
     "bradlc",
+    "collectstatic",
     "cookiecutter",
     "devcontainers",
     "diskcache",
     "djlint",
     "djstripe",
+    "Glassdoor",
     "Gunicorn",
     "Hetzner",
     "Instrumentor",
     "isort",
+    "Meilisearch",
+    "nostatic",
     "opentelemetry",
     "pipenv",
+    "runserver",
+    "Spatia",
     "testid",
-    "webauthn"
+    "webauthn",
+    "Whitenoise",
+    "WSGI"
   ],
   "cSpell.ignoreWords": [
     "Ejkgq",

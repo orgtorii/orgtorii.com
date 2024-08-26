@@ -2,7 +2,6 @@ from collections.abc import Iterable
 
 from djstripe.enums import ProductType
 from djstripe.models import Product
-
 from saas.users import models as user_models
 
 
