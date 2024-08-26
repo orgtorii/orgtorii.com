@@ -10,4 +10,4 @@ class HomepageTestCase(PlaywrightTestCase):
         context = self.browser.new_context()  # Create an isolated browser context
         page = context.new_page()
         page.goto(self.live_server_url)
-        self.assertIn("OrgTorii Kit", page.title())
+        self.assertIn("Org Torii", page.title())
