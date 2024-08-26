@@ -1,0 +1,40 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+nh3 = "*"
+diskcache = "*"
+django-model-utils = "*"
+django-environ = "*"
+django-guardian = "*"
+django-filter = "*"
+django-braces = "*"
+django-extensions = "*"
+django-allauth = {extras = ["mfa"], version = "*"}
+django = {extras = ["argon2"], version = "*"}
+opentelemetry-sdk = "*"
+opentelemetry-instrumentation-django = "*"
+django-prometheus = "*"
+pillow = "*"
+django-meta = "*"
+dj-stripe = "*"
+
+[dev-packages]
+playwright = "*"
+tblib = "*" # for better tracebacks when parallel testing
+django-debug-toolbar = "*"
+factory-boy = "*"
+pre-commit = "*"
+ruff = "*"
+mypy = "*"
+django-stubs = {extras = ["compatible-mypy"], version = "*"}
+djangorestframework-stubs = "*"
+coverage = "*"
+django-coverage-plugin = "*"
+sphinx = "*"
+djlint = "*"
+
+[requires]
+python_version = "3.12"

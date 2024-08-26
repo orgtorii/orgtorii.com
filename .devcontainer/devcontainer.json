@@ -1,0 +1,33 @@
+{
+  "name": "Django SaaS starter",
+  "dockerComposeFile": ["../docker-compose.yaml", "../docker-compose.dev.yaml"],
+  "service": "app",
+  "mounts": [
+    "source=profile,target=/root,type=volume",
+    "target=/root/.vscode-server,type=volume"
+  ],
+  "workspaceFolder": "/workspace",
+  "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
+  "features": {
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.12"
+    },
+    "ghcr.io/nils-geistmann/devcontainers-features/zsh:0": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.black-formatter",
+        "batisteo.vscode-django",
+        "codezombiech.gitignore",
+        "ms-python.isort",
+        "esbenp.prettier-vscode",
+        "ms-python.vscode-pylance",
+        "ms-python.python",
+        "ms-python.debugpy",
+        "bradlc.vscode-tailwindcss",
+        "vscode-icons-team.vscode-icons"
+      ]
+    }
+  }
+}

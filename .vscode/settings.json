@@ -1,0 +1,46 @@
+{
+  "cSpell.words": [
+    "bradlc",
+    "cookiecutter",
+    "devcontainers",
+    "diskcache",
+    "djlint",
+    "djstripe",
+    "Gunicorn",
+    "Hetzner",
+    "Instrumentor",
+    "isort",
+    "opentelemetry",
+    "pipenv",
+    "testid",
+    "webauthn"
+  ],
+  "cSpell.ignoreWords": [
+    "Ejkgq",
+    "PWDEBUG",
+    "TOTP",
+    "allauth",
+    "batisteo",
+    "borgmatic",
+    "codezombiech",
+    "debugpy",
+    "entr",
+    "esbenp",
+    "geistmann",
+    "pylance",
+    "sorl",
+    "tailwindcss"
+  ],
+  "[html][django-html][handlebars][hbs][mustache][jinja][jinja-html][nj][njk][nunjucks][twig]": {
+    "editor.defaultFormatter": "monosans.djlint"
+  },
+  "[python]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.organizeImports": "explicit"
+    }
+  },
+  "makefile.configureOnOpen": false
+}
