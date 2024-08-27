@@ -22,6 +22,7 @@ django-meta = "*"
 dj-stripe = "*"
 whitenoise = {extras = ["brotli"], version = "*"}
 django-htmx = "*"
+typeid-python = "*"
 
 [dev-packages]
 playwright = "*"

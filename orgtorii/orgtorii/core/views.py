@@ -22,5 +22,9 @@ def newsletter_success(request):
 
 
 def coming_soon(request):
-    meta = Meta(title="Coming Soon")
-    return render(request, "core/coming_soon.html", {"meta": meta})
+    meta = Meta(title="Org Torii - Coming Soon")
+    newsletter_form = NewsletterSignupForm()
+
+    return render(
+        request, "core/coming_soon.html", {"meta": meta, "newsletter_form": newsletter_form}
+    )
