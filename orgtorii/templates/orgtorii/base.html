@@ -38,8 +38,15 @@
         <script src="{% static "orgtorii/js/htmx.min.js" %}" defer></script>
     </head>
     <body>
+        {% block header %}
+            {% comment %} Include the header partial by default {% endcomment %}
+            {% include "partials/orgtorii/header.html" %}
+        {% endblock header %}
         {% block body %}
         {% endblock body %}
-        {% include "partials/orgtorii/footer.html" %}
+        {% block footer %}
+            {% comment %} Include the footer partial by default {% endcomment %}
+            {% include "partials/orgtorii/footer.html" %}
+        {% endblock footer %}
     </body>
 </html>
