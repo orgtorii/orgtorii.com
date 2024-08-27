@@ -13,12 +13,12 @@ def newsletter_signup(request):
         if form.is_valid():
             form.save()
             return redirect("newsletter:signup_success")
-    return render(request, "core/newsletter/signup.html", {"form": form, "meta": meta})
+    return render(request, "core/pages/newsletter/signup.html", {"form": form, "meta": meta})
 
 
 def newsletter_success(request):
     meta = Meta(title="Thank you")
-    return render(request, "core/newsletter/success.html", {"meta": meta})
+    return render(request, "core/pages/newsletter/success.html", {"meta": meta})
 
 
 def coming_soon(request):

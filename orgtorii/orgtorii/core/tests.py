@@ -14,7 +14,7 @@ class NewsletterTestCase(TestCase):
     def test_newsletter_signup_uses_correct_template(self):
         response = self.client.get(reverse("newsletter:signup"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "core/newsletter/signup.html")
+        self.assertTemplateUsed(response, "core/pages/newsletter/signup.html")
 
     def test_newsletter_signup_uses_form(self):
         response = self.client.get(reverse("newsletter:signup"))
