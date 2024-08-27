@@ -1,5 +1,6 @@
 import uuid
 
+from django.forms import ValidationError
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.html import escape
@@ -75,21 +76,21 @@ class EmployerReviewMVPTestCase(TestCase):
             model = core_models.EmployerReviewMVP
 
         company_name = Faker("company")
-        company_url = Faker("url")
+        company_domain = Faker("domain_name")
         job_title = Faker("job")
         location = Faker("address")
         estimated_review_date = Faker("date")
         tenure_months = Faker("random_int", min=1, max=120)
         current_employee = Faker("boolean")
-        review_title = Faker("sentence")
-        review = Faker("text")
+        review_title = Faker("sentence", nb_words=10)
+        review = Faker("paragraph", nb_sentences=10)
         culture_rating = Faker("random_int", min=1, max=5)
         work_life_balance_rating = Faker("random_int", min=1, max=5)
         leadership_rating = Faker("random_int", min=1, max=5)
         opportunities_rating = Faker("random_int", min=1, max=5)
         compensation_rating = Faker("random_int", min=1, max=5)
-        pros = list()
-        cons = list()
+        pros = []
+        cons = []
         verified = Faker("boolean")
 
     def test_typeid_generation(self):
@@ -105,3 +106,61 @@ class EmployerReviewMVPTestCase(TestCase):
         review = self.Factory()
         upload_path = core_models.get_payslip_upload_path(review, f"{'payslip'*30}.pdf")
         self.assertLessEqual(len(upload_path), 100)
+
+    def test_filename_generation_sanitization(self):
+        review = self.Factory()
+        upload_path = core_models.get_payslip_upload_path(review, "payslip with spaces.pdf")
+        self.assertNotIn(" ", upload_path)
+        self.assertTrue(upload_path.endswith("payslip_with_spaces.pdf"))
+        self.assertTrue(upload_path.startswith("employer_reviews/payslips/"))
+
+    def test_review_cannot_be_too_short(self):
+        review = self.Factory(review=Faker("text", max_nb_chars=159))
+        with self.assertRaises(ValidationError) as cm:
+            review.full_clean()
+        self.assertIn(
+            f"Ensure this value has at least 160 characters (it has {len(review.review)}).",
+            cm.exception.messages,
+        )
+        self.assertEqual(len(cm.exception.error_dict), 1)
+
+    def test_review_cannot_be_in_the_future(self):
+        review = self.Factory.build(estimated_review_date=Faker("future_date"))
+        with self.assertRaises(ValidationError) as cm:
+            review.full_clean()
+        self.assertIn("The date cannot be in the future.", cm.exception.messages)
+        self.assertEqual(len(cm.exception.error_dict), 1)
+
+    def test_review_title_cannot_be_too_short(self):
+        review = self.Factory(review_title=Faker("text", max_nb_chars=9))
+        with self.assertRaises(ValidationError) as cm:
+            review.full_clean()
+        self.assertIn(
+            f"Ensure this value has at least 10 characters (it has {len(review.review_title)}).",
+            cm.exception.messages,
+        )
+        self.assertEqual(len(cm.exception.error_dict), 1)
+
+    def test_company_domain_name_not_required(self):
+        review = self.Factory(company_domain="")
+        review.full_clean()
+
+    def test_default_pros_cons_are_empty_list(self):
+        review = self.Factory()
+        review.full_clean()
+        self.assertEqual(review.pros, [])
+        self.assertEqual(review.cons, [])
+
+    def test_pros_are_saved_as_list(self):
+        review = self.Factory(pros=["Great team", "Good work-life balance"])
+        review.full_clean()
+        self.assertEqual(review.pros, ["Great team", "Good work-life balance"])
+        review = core_models.EmployerReviewMVP.objects.get(pk=review.pk)
+        self.assertEqual(review.pros, ["Great team", "Good work-life balance"])
+
+    def test_cons_are_saved_as_list(self):
+        review = self.Factory(cons=["Bad management", "Low pay"])
+        review.full_clean()
+        self.assertEqual(review.cons, ["Bad management", "Low pay"])
+        review = core_models.EmployerReviewMVP.objects.get(pk=review.pk)
+        self.assertEqual(review.cons, ["Bad management", "Low pay"])

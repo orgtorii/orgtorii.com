@@ -1,8 +1,11 @@
 import os
 import re
 import unicodedata
+from datetime import date
+from typing import Any
 
 from django.core import validators
+from django.core.exceptions import ValidationError
 from django.db import models
 from typeid import TypeID
 
@@ -85,20 +88,32 @@ def get_payslip_upload_path(instance: "EmployerReviewMVP", filename: str) -> str
     return f"employer_reviews/payslips/{instance.id}/{type_id}-{sanitized_filename}"
 
 
+def validate_not_in_future(value: Any) -> Any:
+    if not isinstance(value, date):
+        raise ValidationError("The value must be a date.")
+    if value > date.today():
+        raise ValidationError("The date cannot be in the future.")
+    return value
+
+
 class EmployerReviewMVP(models.Model):
     # Company info
     company_name = models.CharField(max_length=255)
-    company_url = models.URLField()
+    company_domain = models.CharField(
+        max_length=255, validators=[validators.DomainNameValidator()], blank=True
+    )
     # Employee info
     job_title = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
-    estimated_review_date = models.DateField()  # Approximately when is your review valid?
+    estimated_review_date = models.DateField(
+        validators=[validate_not_in_future]
+    )  # Approximately when is your review valid?
     tenure_months = models.PositiveSmallIntegerField()  # how long have they worked there
     current_employee = models.BooleanField(default=False)
     # Any employee proof
     payslip = models.FileField(upload_to=get_payslip_upload_path, blank=True)
     # The review
-    review_title = models.CharField(max_length=255)
+    review_title = models.CharField(max_length=255, validators=[validators.MinLengthValidator(10)])
     review = models.TextField(validators=[validators.MinLengthValidator(160)])
     # Some ratings. 1-5 where 1 is the worst and 5 is the best
     culture_rating = models.PositiveSmallIntegerField(
@@ -132,8 +147,8 @@ class EmployerReviewMVP(models.Model):
         ]
     )  # How well are you compensated? 1-5
     # Pros and cons - each a list of strings
-    pros = models.JSONField(default=list)
-    cons = models.JSONField(default=list)
+    pros = models.JSONField(default=list, blank=True)
+    cons = models.JSONField(default=list, blank=True)
     # Metadata
     verified = models.BooleanField(default=False)  # Have we verified this review?
     created_at = models.DateTimeField(auto_now_add=True)
