@@ -48,3 +48,18 @@ class NewsletterTestCase(TestCase):
         response = self.client.get("/")
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "partials/orgtorii/newsletter/signup.html")
+
+
+class ComingSoonTestCase(TestCase):
+    def test_coming_soon_page_uses_correct_template(self):
+        response = self.client.get(reverse("core:coming_soon"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "core/coming_soon.html")
+
+    def test_coming_soon_page_shows_message(self):
+        response = self.client.get(reverse("core:coming_soon"))
+        self.assertContains(response, "We're working on something new!")
+
+    def test_coming_soon_page_shows_signup_form(self):
+        response = self.client.get(reverse("core:coming_soon"))
+        self.assertContains(response, 'id="newsletter-form"')

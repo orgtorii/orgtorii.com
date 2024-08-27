@@ -3,7 +3,7 @@ from abc import ABC
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import tag
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import expect, sync_playwright
 
 
 @tag("browser")
@@ -11,6 +11,8 @@ class PlaywrightTestCase(ABC, StaticLiveServerTestCase):
     """A base test case class for Playwright tests.
     It provides a Playwright browser instance and a browser context
     and launches the Django static live server."""
+
+    expect = expect  # helper for assertions
 
     @classmethod
     def setUpClass(cls) -> None:

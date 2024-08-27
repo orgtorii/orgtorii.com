@@ -37,7 +37,7 @@ DEBUG = env("DEBUG")
 
 TESTING = "test" in sys.argv
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 INTERNAL_IPS = [
     "127.0.0.1",
@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     "allauth.mfa",  # Multi-factor authentication extension
     "meta",  # SEO metadata
     "djstripe",  # Stripe integration
+    "django_htmx",  # HTMX integration
     # Project apps
     "orgtorii.users",
     "orgtorii.core",
@@ -82,6 +83,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_htmx.middleware.HtmxMiddleware",  # adds request.htmx attribute
     # allauth account middleware:
     "allauth.account.middleware.AccountMiddleware",
 ]
@@ -271,6 +273,9 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]  # Add additional static file directories other than the app directories
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATIC_HOST = env.str("DJANGO_STATIC_HOST", "")
 STATIC_URL = STATIC_HOST + "/static/"

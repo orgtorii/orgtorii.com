@@ -19,3 +19,8 @@ def newsletter_signup(request):
 def newsletter_success(request):
     meta = Meta(title="Thank you")
     return render(request, "core/newsletter/success.html", {"meta": meta})
+
+
+def coming_soon(request):
+    meta = Meta(title="Coming Soon")
+    return render(request, "core/coming_soon.html", {"meta": meta})

@@ -41,6 +41,18 @@ urlpatterns = [
             namespace="newsletter",
         ),
     ),
+    path(
+        "",
+        include(
+            (
+                [
+                    path("coming-soon", core_views.coming_soon, name="coming_soon"),
+                ],
+                "core",
+            ),
+            namespace="core",
+        ),
+    ),
     path("", include("django_prometheus.urls")),
     path(
         "",
