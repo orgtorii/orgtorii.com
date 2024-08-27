@@ -16,7 +16,7 @@ from pathlib import Path
 
 import environ
 
-env = environ.Env(DEBUG=(bool, False))
+env = environ.Env()
 
 PROJECT_DISPLAY_NAME = "Org Torii"  # Used for public display e.g as default in <title> tags
 PROJECT_SLUG = "orgtorii"
@@ -33,7 +33,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env.local"))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env.str("SECRET_KEY")
 
-DEBUG = env("DEBUG")
+DEBUG = env.boo("DEBUG", False)
 
 TESTING = "test" in sys.argv
 
