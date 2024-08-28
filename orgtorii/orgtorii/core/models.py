@@ -149,6 +149,13 @@ class EmployerReviewMVP(models.Model):
     # Pros and cons - each a list of strings
     pros = models.JSONField(default=list, blank=True)
     cons = models.JSONField(default=list, blank=True)
+    # Compensation info
+    currency = models.CharField(max_length=3, default="USD")
+    base_annual_salary = models.PositiveIntegerField(blank=True, null=True)
+    additional_annual_compensation = models.PositiveIntegerField(
+        blank=True,
+        null=True,
+    )  # e.g. bonuses, stock options
     # Metadata
     verified = models.BooleanField(default=False)  # Have we verified this review?
     created_at = models.DateTimeField(auto_now_add=True)

@@ -1,4 +1,5 @@
 import uuid
+from sqlite3 import IntegrityError
 
 from django.forms import ValidationError
 from django.test import TestCase
@@ -83,7 +84,7 @@ class EmployerReviewMVPTestCase(TestCase):
         tenure_months = Faker("random_int", min=1, max=120)
         current_employee = Faker("boolean")
         review_title = Faker("sentence", nb_words=10)
-        review = Faker("paragraph", nb_sentences=10)
+        review = Faker("paragraph", nb_sentences=50)
         culture_rating = Faker("random_int", min=1, max=5)
         work_life_balance_rating = Faker("random_int", min=1, max=5)
         leadership_rating = Faker("random_int", min=1, max=5)
@@ -91,6 +92,8 @@ class EmployerReviewMVPTestCase(TestCase):
         compensation_rating = Faker("random_int", min=1, max=5)
         pros = []
         cons = []
+        base_annual_salary = Faker("random_int", min=5_000, max=900_000)
+        additional_annual_compensation = Faker("random_int", min=0, max=10_000)
         verified = Faker("boolean")
 
     def test_typeid_generation(self):
@@ -164,3 +167,19 @@ class EmployerReviewMVPTestCase(TestCase):
         self.assertEqual(review.cons, ["Bad management", "Low pay"])
         review = core_models.EmployerReviewMVP.objects.get(pk=review.pk)
         self.assertEqual(review.cons, ["Bad management", "Low pay"])
+
+    def test_negative_salary_is_not_allowed(self):
+        review = self.Factory(base_annual_salary=-1)
+        with self.assertRaises(IntegrityError) as cm:
+            review.full_clean()
+        print(cm.exception)
+
+    def test_no_salary_is_allowed(self):
+        review = self.Factory(base_annual_salary=0)
+        review.full_clean()
+
+    def test_negative_additional_annual_compensation_is_not_allowed(self):
+        review = self.Factory(additional_annual_compensation=-1)
+        with self.assertRaises(IntegrityError) as cm:
+            review.full_clean()
+        print(cm.exception)
